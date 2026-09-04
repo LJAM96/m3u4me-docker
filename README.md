@@ -52,12 +52,11 @@ docker run -d \
 
 ## How auto-update works
 
-`.github/workflows/build.yml`:
+`.github/workflows/build.yml` (once nightly at 3am, plus on wrapper pushes and manual runs):
 
-- rebuilds **nightly** (`cron: 0 3 * * *`) against upstream `main`
-- rebuilds on every push to this repo's `main`
-- manual run with custom `upstream_ref` via **Run workflow**
-- pushes to `ghcr.io/ljam96/m3u4me-docker:latest` (+ SHA tag)
+- resolves upstream `main` to a commit SHA and skips the build if that commit was already built — idle nights finish in seconds
+- on a new upstream commit, builds for `linux/amd64` + `linux/arm64` and pushes to `ghcr.io/ljam96/m3u4me-docker:latest` (+ wrapper SHA tag)
+- manual run with custom `upstream_ref` via **Run workflow** (always builds, e.g. to pin a tag)
 
 No fork maintenance — to pick up upstream fixes, just `docker compose pull && docker compose up -d` after the nightly build runs (or wait for Watchtower/auto-update if you use it).
 
