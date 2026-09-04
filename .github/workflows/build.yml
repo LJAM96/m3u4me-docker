@@ -10,9 +10,10 @@ on:
         required: false
         default: "main"
   schedule:
-    # Nightly check against upstream main. The heavy build is skipped when
-    # the upstream commit hasn't changed, so idle nights cost seconds.
-    - cron: "0 3 * * *"
+    # Monthly check against upstream main (1st, 3am UTC). The heavy build
+    # is skipped when the upstream commit hasn't changed, so idle months
+    # cost seconds.
+    - cron: "0 3 1 * *"
 
 env:
   REGISTRY: ghcr.io

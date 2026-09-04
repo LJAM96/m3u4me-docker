@@ -52,9 +52,9 @@ docker run -d \
 
 ## How auto-update works
 
-`.github/workflows/build.yml` (once nightly at 3am, plus on wrapper pushes and manual runs):
+`.github/workflows/build.yml` (monthly check on the 1st at 3am UTC, plus on wrapper pushes and manual runs):
 
-- resolves upstream `main` to a commit SHA and skips the build if that commit was already built — idle nights finish in seconds
+- resolves upstream `main` to a commit SHA and skips the build if that commit was already built — idle months finish in seconds
 - on a new upstream commit, builds for `linux/amd64` + `linux/arm64` and pushes to `ghcr.io/ljam96/m3u4me-docker:latest` (+ wrapper SHA tag)
 - manual run with custom `upstream_ref` via **Run workflow** (always builds, e.g. to pin a tag)
 
