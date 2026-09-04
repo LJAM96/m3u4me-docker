@@ -1,0 +1,18 @@
+services:
+  m3u4me:
+    build:
+      context: .
+      args:
+        # Pin to a tag for stability, or use `main` for latest:
+        # UPSTREAM_REF: v2.0.0
+        UPSTREAM_REF: main
+    image: ghcr.io/ljam96/m3u4me-docker:latest
+    container_name: m3u4me
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - PORT=8080
+      - NODE_ENV=production
+    restart: unless-stopped
